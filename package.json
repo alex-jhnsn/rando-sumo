@@ -1,0 +1,24 @@
+{
+  "name": "rando-sumo",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A random car generator discord bot for GTA sumo maps",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alex-jhnsn/rando-sumo.git"
+  },
+  "author": "Alex Johnson",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/alex-jhnsn/rando-sumo/issues"
+  },
+  "homepage": "https://github.com/alex-jhnsn/rando-sumo#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
