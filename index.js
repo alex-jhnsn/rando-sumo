@@ -1,5 +1,6 @@
 import "dotenv/config.js";
 import { Client, Intents } from "discord.js";
+import { bold, italic, memberNicknameMention } from "@discordjs/builders";
 import { randomCategory, randomCar } from "./randomiser.js";
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
@@ -23,12 +24,15 @@ client.on("interactionCreate", async interaction => {
       return;
     }
 
-    await interaction.reply({content: "Picking your cars from any category..."})
+    let msg = "Picking your cars from any category...\n\n";
+
     channel.members.forEach(async member => {
       const category = randomCategory();
       const car = randomCar(category);
-      await interaction.followUp({content: `${member} your car is: ${category} - ${car}`});
+      msg += `${memberNicknameMention(member.id)} your car is: ${bold(category)} - ${bold(car)}\n`
     });
+
+    await interaction.reply({content: msg});
 	} else if (commandName === "info") {
     await interaction.reply({content: `Hello ${interaction.member}, my name is Yu Phat`, ephemeral: true})
   }
