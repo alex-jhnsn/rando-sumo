@@ -1,29 +1,37 @@
-import 'dotenv/config.js';
+import "dotenv/config.js";
 import { Client, Intents } from "discord.js";
-import { randomCategory, randomCar } from './randomiser.js';
+import { randomCategory, randomCar } from "./randomiser.js";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_VOICE_STATES] });
 
 client.once("ready", () => {
   console.log(`Ready! Logged in as ${client.user.tag}.`);
 });
 
-client.on('interactionCreate', async interaction => {
+client.on("interactionCreate", async interaction => {
 
   if (!interaction.isCommand()) 
     return;
 
 	const { commandName } = interaction;
 
-	if (commandName === 'sumo') {
-    const channel = await interaction.guild.channels.fetch("894672255643181207");
+	if (commandName === "sumo") {
+    const channel = await interaction.guild.channels.fetch(interaction.member.voice.channelId);
 
+    if (!channel.members) {
+      await interaction.reply({content: "No one is ready to sumo :(."});
+      return;
+    }
+
+    await interaction.reply({content: "Picking your cars from any category..."})
     channel.members.forEach(async member => {
       const category = randomCategory();
       const car = randomCar(category);
-      await interaction.reply({content: `${member} your car is: ${category} - ${car}`});
+      await interaction.followUp({content: `${member} your car is: ${category} - ${car}`});
     });
-	}
+	} else if (commandName === "info") {
+    await interaction.reply({content: `Hello ${interaction.member}, my name is Yu Phat`, ephemeral: true})
+  }
 });
 
 client.login(process.env.TOKEN);
