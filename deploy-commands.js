@@ -8,9 +8,8 @@ const guildId = process.env.GUILD_ID;
 const token = process.env.TOKEN;
 
 const commands = [
-	new SlashCommandBuilder().setName('ping').setDescription('Replies with pong!'),
-	new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
-	new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
+	new SlashCommandBuilder().setName('info').setDescription('Returns info about me, Rando Sumo.'),
+	new SlashCommandBuilder().setName('sumo').setDescription('Gives everyone a random car class and type to play sumo with.')
 ]
 	.map(command => command.toJSON());
 
